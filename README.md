@@ -60,18 +60,18 @@ npm install
 docker compose up -d
 ```
 
-4. Run database migrations:
-
-```bash
-# in backend/
-npm run migrate:latest
-```
-
-5. Start the backend server (dev):
+4. Start the backend server (dev):
 
 ```bash
 # in backend/
 npm run dev
+```
+
+5. Run database migrations:
+
+```bash
+# in backend/
+npm run migrate:latest
 ```
 
 Server runs at http://localhost:3000 (unless PORT differs).
