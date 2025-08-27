@@ -29,21 +29,22 @@ A minimal admin dashboard to moderate article comments. It provides:
 
 ```
 # App
-PORT=3000
+PORT=4000
+JWT_SECRET=theBestSecret123
 ADMIN_USER=admin
 ADMIN_PASS=1234
-JWT_SECRET=supersecret
 
-# Postgres
+# Database
 DB_HOST=localhost
 DB_PORT=5432
 DB_USER=app
 DB_PASSWORD=app
 DB_NAME=comments
 
-# Optional: pgAdmin
-PGADMIN_DEFAULT_EMAIL=admin@local
-PGADMIN_DEFAULT_PASSWORD=admin
+# Postgres
+POSTGRES_USER=app
+POSTGRES_PASSWORD=app
+POSTGRES_DB=comments
 ```
 
 2. Install dependencies:
