@@ -70,12 +70,15 @@ npm run dev
 
 5. Run database migrations:
 
+Note: the first time you start the containers, Postgres may take a few seconds to become ready.
+If the migration command fails on the first attempt, simply run it again once the database is up.
+
 ```bash
 # in backend/
 npm run migrate:latest
 ```
 
-Server runs at http://localhost:3000 (unless PORT differs).
+Server runs at http://localhost:4000 (unless PORT differs).
 
 ### Useful backend endpoints
 
@@ -97,7 +100,7 @@ Public comments endpoints (no auth required):
 1. Create a `.env` file in `frontend/`:
 
 ```
-VITE_API_BASE=http://localhost:3000
+VITE_API_BASE=http://localhost:4000
 ```
 
 2. Install and run:
@@ -133,27 +136,27 @@ Login and save token:
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d '{"username":"admin","password":"1234"}' \
-  http://localhost:3000/admin/auth/login
+  http://localhost:4000/admin/auth/login
 ```
 
 List pending comments (replace TOKEN):
 
 ```bash
-curl -H "Authorization: Bearer TOKEN" http://localhost:3000/admin/comments/pending
+curl -H "Authorization: Bearer TOKEN" http://localhost:4000/admin/comments/pending
 ```
 
 Approve a comment:
 
 ```bash
 curl -X POST -H "Authorization: Bearer TOKEN" \
-  http://localhost:3000/admin/comments/123/approve
+  http://localhost:4000/admin/comments/123/approve
 ```
 
 Delete a comment:
 
 ```bash
 curl -X DELETE -H "Authorization: Bearer TOKEN" \
-  http://localhost:3000/admin/comments/123
+  http://localhost:4000/admin/comments/123
 ```
 
 Create a public comment:
@@ -162,13 +165,13 @@ Create a public comment:
 curl -s -X POST \
   -H "Content-Type: application/json" \
   -d '{"authorName":"Jane","content":"Nice article!"}' \
-  http://localhost:3000/api/comments/ARTICLE_ID
+  http://localhost:4000/api/comments/ARTICLE_ID
 ```
 
 Get approved comments for an article (public):
 
 ```bash
-curl http://localhost:3000/api/comments/ARTICLE_ID
+curl http://localhost:4000/api/comments/ARTICLE_ID
 ```
 
 ---
