@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { login } from '../../api';
-import he from '../../strings';
+import strings from '../../strings';
 import { useNavigate } from 'react-router-dom';
 import LockIcon from '@mui/icons-material/Lock';
 import {
@@ -27,9 +27,7 @@ export default function Login() {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<Form>({
-    defaultValues: { username: 'admin', password: '1234' },
-  });
+  } = useForm<Form>();
 
   const onSubmit = handleSubmit(async (data) => {
     setServerError('');
@@ -38,7 +36,7 @@ export default function Login() {
       localStorage.setItem('token', token);
       nav('/pending');
     } catch (e: any) {
-      setServerError(e.message || he.login.error);
+      setServerError(e.message || strings.login.error);
     }
   });
 
@@ -48,24 +46,27 @@ export default function Login() {
         <Paper elevation={3} className={classes.paper}>
           <Stack direction="row" spacing={1} alignItems="center">
             <Avatar>
-              {' '}
               <LockIcon />
             </Avatar>
             <Logo />
           </Stack>
           <form className={classes.form} onSubmit={onSubmit} noValidate>
             <TextField
-              label={he.login.username}
+              label={strings.login.username}
               fullWidth
-              {...register('username', { required: he.validation.required })}
+              {...register('username', {
+                required: strings.validation.required,
+              })}
               error={!!errors.username}
               helperText={errors.username?.message}
             />
             <TextField
               type="password"
-              label={he.login.password}
+              label={strings.login.password}
               fullWidth
-              {...register('password', { required: he.validation.required })}
+              {...register('password', {
+                required: strings.validation.required,
+              })}
               error={!!errors.password}
               helperText={errors.password?.message}
             />
@@ -78,7 +79,7 @@ export default function Login() {
               variant="contained"
               fullWidth
             >
-              {isSubmitting ? he.login.loggingIn : he.login.submit}
+              {isSubmitting ? strings.login.loggingIn : strings.login.submit}
             </Button>
           </form>
         </Paper>

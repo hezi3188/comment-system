@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:4000';
+import strings from './strings';
+const API_BASE = import.meta.env.VITE_API_BASE;
 
 export async function login(username: string, password: string) {
   const res = await fetch(`${API_BASE}/admin/auth/login`, {
@@ -6,7 +7,7 @@ export async function login(username: string, password: string) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ username, password }),
   });
-  if (!res.ok) throw new Error('שגיאת התחברות');
+  if (!res.ok) throw new Error(strings.login.error);
   return res.json() as Promise<{ token: string }>;
 }
 
@@ -14,7 +15,7 @@ export async function getPending(token: string) {
   const res = await fetch(`${API_BASE}/admin/comments/pending`, {
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error('שגיאה בטעינת תגובות');
+  if (!res.ok) throw new Error(strings.pending.error);
   return res.json();
 }
 
@@ -23,7 +24,7 @@ export async function approveComment(id: number, token: string) {
     method: 'POST',
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error('כשל באישור תגובה');
+  if (!res.ok) throw new Error(strings.pending.approve + ' failed');
   return res.json();
 }
 
@@ -32,6 +33,6 @@ export async function deleteComment(id: number, token: string) {
     method: 'DELETE',
     headers: { Authorization: `Bearer ${token}` },
   });
-  if (!res.ok) throw new Error('כשל במחיקת תגובה');
+  if (!res.ok) throw new Error(strings.pending.delete + ' failed');
   return res.json();
 }

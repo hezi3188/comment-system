@@ -12,7 +12,7 @@ import {
   Typography,
 } from '@mui/material';
 import CommentCard from '../../components/commentCard/commentCard';
-import he from '../../strings';
+import strings from '../../strings';
 
 type PendingComment = {
   id: number;
@@ -30,20 +30,26 @@ export default function Pending() {
   const [error, setError] = useState('');
 
   const token = localStorage.getItem('token');
+
+  const fetchData = async () => {
+    try {
+      setLoading(true);
+      const rows = await getPending(token || '');
+      setItems(rows);
+    } catch (e: any) {
+      setError(e.message || strings.pending.error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    if (!token) return nav('/login');
-    (async () => {
-      try {
-        setLoading(true);
-        const rows = await getPending(token);
-        setItems(rows);
-      } catch (e: any) {
-        setError(e.message || he.pending.error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+    if (!token) {
+      nav('/login');
+      return;
+    }
+    fetchData();
+  }, [token, nav]);
 
   async function onApprove(id: number) {
     if (!token) return;
@@ -61,7 +67,7 @@ export default function Pending() {
     <>
       <AppBar position="static">
         <Toolbar>
-          <Typography sx={{ flex: 1 }}>{he.pending.title}</Typography>
+          <Typography sx={{ flex: 1 }}>{strings.pending.title}</Typography>
           <Button
             color="inherit"
             onClick={() => {
@@ -69,7 +75,7 @@ export default function Pending() {
               nav('/login');
             }}
           >
-            {he.pending.logout}
+            {strings.pending.logout}
           </Button>
         </Toolbar>
       </AppBar>
@@ -81,13 +87,13 @@ export default function Pending() {
         )}
         {error && <Typography color="error">{error}</Typography>}
         {!loading && items.length === 0 && (
-          <Typography>{he.pending.none}</Typography>
+          <Typography>{strings.pending.none}</Typography>
         )}
         <div className={classes.list}>
           {items.map((c) => (
             <CommentCard
               key={c.id}
-              c={c}
+              comment={c}
               onApprove={onApprove}
               onDelete={onDelete}
             />

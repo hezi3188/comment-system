@@ -7,7 +7,6 @@ export default function App() {
   const nav = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem('token');
-    console.log('token', token);
     if (token) nav('/pending');
   }, []);
 

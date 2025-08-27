@@ -1,4 +1,4 @@
-const he = {
+const strings = {
   appTitle: 'ממשק ניהול תגובות',
   login: {
     heading: 'כניסת מנהל',
@@ -13,14 +13,16 @@ const he = {
     logout: 'התנתקות',
     none: 'אין תגובות ממתינות ✅',
     loading: 'טוען…',
-    error: 'שגיאה',
+    error: 'שגיאה בטעינת תגובות',
     approve: 'אישור',
     delete: 'מחיקה',
     article: 'כתבה',
     created: 'נוצר',
+    approveFailed: 'כשל באישור תגובה',
+    deleteFailed: 'כשל במחיקת תגובה',
   },
   validation: {
     required: 'שדה חובה',
   },
 };
-export default he;
+export default strings;

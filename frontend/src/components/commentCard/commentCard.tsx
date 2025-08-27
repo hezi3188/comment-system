@@ -7,22 +7,22 @@ import {
   Stack,
 } from '@mui/material';
 import { useStyles } from './commentCardStyles';
-import he from '../../strings';
+import strings from '../../strings';
 
-type PendingComment = {
+interface PendingComment {
   id: number;
   article_id: string;
   author_name: string;
   content: string;
   created_at: string;
-};
+}
 
 export default function CommentCard({
-  c,
+  comment,
   onApprove,
   onDelete,
 }: {
-  c: PendingComment;
+  comment: PendingComment;
   onApprove: (id: number) => void;
   onDelete: (id: number) => void;
 }) {
@@ -32,14 +32,15 @@ export default function CommentCard({
       <CardContent>
         <Stack spacing={1}>
           <Typography className={classes.meta} variant="caption">
-            {he.pending.article}: <b>{c.article_id}</b> • {he.pending.created}:{' '}
-            {new Date(c.created_at).toLocaleString('he-IL')}
+            {strings.pending.article}: <b>{comment.article_id}</b> •{' '}
+            {strings.pending.created}:{' '}
+            {new Date(comment.created_at).toLocaleString('he-IL')}
           </Typography>
           <Typography variant="subtitle1">
-            <b>{c.author_name}</b>
+            <b>{comment.author_name}</b>
           </Typography>
           <Typography variant="body1" sx={{ whiteSpace: 'pre-wrap' }}>
-            {c.content}
+            {comment.content}
           </Typography>
         </Stack>
       </CardContent>
@@ -47,17 +48,17 @@ export default function CommentCard({
         <Button
           size="small"
           variant="contained"
-          onClick={() => onApprove(c.id)}
+          onClick={() => onApprove(comment.id)}
         >
-          {he.pending.approve}
+          {strings.pending.approve}
         </Button>
         <Button
           size="small"
           color="error"
           variant="outlined"
-          onClick={() => onDelete(c.id)}
+          onClick={() => onDelete(comment.id)}
         >
-          {he.pending.delete}
+          {strings.pending.delete}
         </Button>
       </CardActions>
     </Card>
