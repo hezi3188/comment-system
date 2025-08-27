@@ -18,4 +18,5 @@ exports.up = async function (knex) {
 exports.down = async function (knex) {
     await knex.schema.dropTableIfExists('comments');
     await knex.schema.raw('DROP TYPE IF EXISTS comment_status;');
+    await knex.schema.raw('DROP INDEX IF EXISTS comments_article_status_idx;');
 };
